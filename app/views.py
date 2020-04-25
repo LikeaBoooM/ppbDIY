@@ -61,6 +61,8 @@ def PostDetail(request, pk):
             content = request.POST.get('content')
             comment = Comment.objects.create(post=post, author = request.user, content=content)
             comment.save()
+            
+            return HttpResponseRedirect(post.get_absolute_url())
     else :
         form = CommentForm()
 
