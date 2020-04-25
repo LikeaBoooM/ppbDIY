@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from . forms import PostForm
-from . models import Post, User
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from . forms import PostForm, CommentForm
+from . models import Post, User, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # Create your views here.
@@ -16,7 +16,7 @@ def home(request):
 
 class PostList(ListView):
     model = Post
-    template_name = 'app/home.html'
+    template_name = 'app/posts.html'
     context_object_name = 'posts'
 
 class PostCreate(LoginRequiredMixin, CreateView):
@@ -52,6 +52,23 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-class PostDetail(DetailView):
-    model = Post  
+def PostDetail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    comments = Comment.objects.filter(post=post).order_by('-id')
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            content = request.POST.get('content')
+            comment = Comment.objects.create(post=post, author = request.user, content=content)
+            comment.save()
+    else :
+        form = CommentForm()
+
+    stuff_for_frontend = {
+        'object' : post,
+        'comments': comments,
+        'form' :form,
+    }
+
+    return render(request, 'app/post_detail.html', stuff_for_frontend)
     
