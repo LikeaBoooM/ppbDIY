@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="flexbox-container3">
+    <div>
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="" style="margin-top: 20px;">
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+            <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+            {% if object.author == user %}
+            <div>
+            <a class="btn btn-outline-secondary" href="{% url 'post-update' object.id %}">Update post</a>
+            <a class="btn btn-outline-danger"href="{% url 'post-delete' object.id %}">Delete post</a>
+            </div>
+            {% endif %}
+        </div>
+            <h2 class="article-title">{{ object.title }}</h2>
+            <p class="article-content">{{ object.content }}</p>
+        </div>
+        </article>
+    </div>
+</div>
+<div class="flexbox-container4">
+    <h1 class="titleh1" style="font-size:3vw; margin-top: 50px;">Comments</h1>
+    <hr>
+        {% for comment in comments %}
+            <div class="comment">
+                <div class="date">{{ comment.date_posted }}</div> <br>
+                Author : <strong>{{ comment.author }}</strong>
+                <p>{{ comment.content|linebreaks }}</p>
+            </div>
+        {% empty %}
+            <p>No comments here yet :(</p>
+        {% endfor %}
+        <h1 class="titleh1" style="font-size:3vw; margin-top: 50px;">Add comment</h1>
+        {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ commentForm|crispy }}
+        <input type="submit" value="Submit" class="btn btn-outline-success">
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
