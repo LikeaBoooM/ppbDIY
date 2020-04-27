@@ -1,15 +1,10 @@
 {% extends 'app/base.html'%}
-{% block content%}
-{% for post in posts %}
-    
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
-    <div class="card-body">
-    <h5 class="card-title">{{post.title}}</h5>
-    {{post.author}}
-    <p class="card-text">{{post.content}}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+{% block content %}
+<div class="grid-container">
+    <div class="Box1"><img src="media/images/Subtraction.png" alt=""></div>
+    <div class="Box2">
+    <img src="media/images/Subtraction_2.png" alt="">
+    <div class="Box3"><img src="media/images/Image_3.png" alt=""><img src="media/images/Image_4.png" alt=""></div>
     </div>
-</div>
-{% endfor %}
-{% endblock%}
+  </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'app/base.html'%}
+{% block flexcontent %}
+{% for post in projects %}
+    <div class="card-body">
+        <img src="{{ post.miniature }}" alt="">
+    <h5 class="card-title">{{post.title}}</h5>
+    {{post.author}}
+    <p class="card-text">{{post.description|safe}}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+{% endfor %}
+{% endblock%}

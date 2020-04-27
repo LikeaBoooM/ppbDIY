@@ -1,6 +1,117 @@
-footer{
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-gap: 8px;
+    align-items: center;
+}
+
+.content {
+    margin-top: 10rem;
+}
+
+
+.logowanie{
+    width:553px;
+    height:53px;
+    background-image: url("./logowanie_rejestracja.png");
+    position: fixed;
+    top:0px;
+    right:0px;
+    font-family: Bahnschrift Condensed;
+    font-size:30px;
+    color:white;
+    text-align:center;
+}
+
+@media screen and (max-width: 800px) {	
+.logowanie{
+    margin-right:-120px;
+}
+}
+.nav-link{
+font-family: "Bahnschrift Condensed";
+font-size:24px;
+color:#707070 !important;
+}
+.nav-item:hover{
+
+background-color: hsla(100, 100%, 100%, 0.3);
+}
+
+.navbar{
+box-shadow: 0px 1px 5px #888888;
+}
+
+.logotext1{
+font-family: "Bahnschrift Condensed";
+font-size:60px;
+color:#707070 !important;	
+line-height:0.8;
+}
+
+.logotext2{
+font-family: "Bahnschrift Condensed";
+font-size:28px;
+color:#707070 !important;	
+margin-top:-20px;
+line-height:0.5;
+}
+.logo{
+margin-top:50px;
+margin-left:50px;
+margin-bottom:50px;
+}
+
+#rounded
+{
+border-radius: 50px;
+}
+
+form div img {
+width:23px;
+height:23px;
+position:fixed;
+right:40px;
+margin-top:12px;
+}
+
+@media screen and (min-width: 1200px) {
+.moja{
+    width:513px !important;
+}
+}
+
+footer {
+    background: -webkit-linear-gradient(to right, rgb(243, 199, 53), #FDC830);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, rgb(243, 199, 53), #FDC830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
     width: 100%;
-    color: #fff;
-    background-color: #333;
+    overflow: hidden;
     margin-top: 100px;
+}
+
+.flexbox-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; 
+    align-items: center;
+    display: flex;
+    margin-bottom: 5rem;
+    margin-top: 5rem;
+    flex-direction: column;
+ }
+
+.flexbox-container form-group{
+    flex-basis: 1000px;
 }

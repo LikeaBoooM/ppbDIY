@@ -1,18 +1,40 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from . forms import PostForm, CommentForm
-from . models import Post, User, Comment
+from . forms import PostForm, CommentForm, ProjectForm
+from . models import Post, User, Comment, Project
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # Create your views here.
 
 def home(request):
-    if request.method == "POST" :
-        form = PostForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-
     return render(request, 'app/home.html')
+
+def add_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            descriptione = request.POST.get('description')
+            title = request.POST.get('title')
+            project_form = Project.objects.create(title=title, author=request.user, description=descriptione)
+            project_form.save()
+            return redirect('home')
+    else:
+        form = ProjectForm()
+    
+    variable ='variable'
+
+    return render(request, 'app/project_create.html', {'form':form , 'variable' : variable})
+    
+
+class ProjectCreate(LoginRequiredMixin, CreateView):
+    model = Project
+    template_name = 'app/project_create.html'
+    fields = ['title','description',]
+
+class ProjectView(ListView):
+    model = Project
+    template_name = 'app/projectss.html'
+    context_object_name = 'projects'
 
 class PostList(ListView):
     model = Post
@@ -21,7 +43,7 @@ class PostList(ListView):
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'image']
+    fields = ['title', 'content']
     template = 'app/post_form.html'
 
     def form_valid(self, form):

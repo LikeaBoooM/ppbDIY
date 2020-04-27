@@ -1,15 +1,25 @@
 {% extends 'app/base.html'%}
-{% block content%}
+{% block flexcontent %}
 {% for post in posts %}
-    
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
-    <div class="card-body">
-    <h5 class="card-title">{{post.title}}</h5>
-    {{post.author}}
-    <p class="card-text">{{post.content}}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Author</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Count of answears</th>
+        <th scope="col">Go to post</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{post.author}}</th>
+        <td>{{post.title}}</td>
+        <td>{{post.content}}</td>
+        <td>{{post.id}}</td>
+        <td><a href="{% url 'post_detail' post.id %}"><button class="btn btn-outline-info" type="submit">Post</button></a></td>
+      </tr>
+    </tbody>
+  </table>
 {% endfor %}
 {% endblock%}

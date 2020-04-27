@@ -1,0 +1,77 @@
+body{
+	background-color:#F2F2F2;
+	margin: 0px auto;
+}
+
+	#logowanie{
+		width:553px;
+		height:53px;
+		background-image: url("img/logowanie_rejestracja.png");
+		position: fixed;
+		top:0px;
+		right:0px;
+		font-family: Bahnschrift Condensed;
+		font-size:30px;
+		color:white;
+		text-align:center;
+	}
+	
+	@media screen and (max-width: 800px) {	
+	#logowanie{
+		margin-right:-120px;
+	}
+}
+.nav-link{
+	font-family: "Bahnschrift Condensed";
+	font-size:24px;
+	color:#707070 !important;
+}
+.nav-item:hover{
+	
+	background-color: hsla(100, 100%, 100%, 0.3);
+}
+
+.navbar{
+
+	box-shadow: 0px 1px 5px #888888;
+}
+
+.logotext1{
+	font-family: "Bahnschrift Condensed";
+	font-size:60px;
+	color:#707070 !important;	
+	line-height:0.8;
+}
+
+.logotext2{
+	font-family: "Bahnschrift Condensed";
+	font-size:28px;
+	color:#707070 !important;	
+	margin-top:-20px;
+	line-height:0.5;
+}
+.logo{
+	margin-top:50px;
+	margin-left:50px;
+	margin-bottom:50px;
+}
+
+#rounded
+{
+border-radius: 50px;
+}
+
+form div img {
+	width:23px;
+	height:23px;
+	position:fixed;
+	right:40px;
+	margin-top:12px;
+}
+
+@media screen and (min-width: 1200px) {
+	.moja{
+		width:513px !important;
+	}
+}
+

@@ -22,6 +22,7 @@ from django.contrib.auth import views as authviwes
 
 urlpatterns = [
     path('', include('app.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('register/', userviews.register, name='register'),
     path('login/', authviwes.LoginView.as_view(template_name='users/login.html'), name='login'),
