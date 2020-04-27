@@ -42,6 +42,7 @@ class Project(models.Model):
     #description = RichTextField(blank=True, null=True)
     description = RichTextUploadingField(blank=True, null=True)
 
+
     def __str__(self):
         return self.title
     

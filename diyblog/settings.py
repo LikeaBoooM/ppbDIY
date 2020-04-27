@@ -45,6 +45,23 @@ INSTALLED_APPS = [
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
+CKEDITOR_CONFIGS = { 'default': 
+                         { 'toolbar': 'Custom', 'height': 500, 'toolbar_Custom': 
+                             [ 
+                                 ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
+                                 ['Link', 'Unlink', 'Anchor'], 
+                                 ['Image', 'Flash', 'Table', 'HorizontalRule'], 
+                                 ['TextColor', 'BGColor'], 
+                                 ['Smiley', 'SpecialChar'], 
+                                 ['Source','CodeSnippet'],
+                             ],'extraPlugins': 'codesnippet'
+                           }, 
+                        'special': {'toolbar': 'Special', 'toolbar_Special':
+                            [['Bold'], ['CodeSnippet'],], 
+                            'extraPlugins': 'codesnippet',
+                            }
+}
+                          
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,7 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/diyblog/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
