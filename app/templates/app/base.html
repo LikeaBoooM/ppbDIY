@@ -10,7 +10,8 @@
 </head>
 <body>
   <body>
-    <div class="logowanie">Logowanie/Rejestracja</div>
+    <div class="logowanie">
+      <a href="{% url 'login' %}">Logowanie</a>/<a href="{% url 'register' %}">Rejestracja</a></div>
     
     <div class="logo">
       <a class="logotext1">JDIY.com</a></br>
@@ -25,19 +26,19 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mr-auto ml-5 mt-2 mt-lg-0">
           <li class="nav-item ">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'home' %}">
               <img src="{% static 'home.png' %}" alt="" >
               Strona główna
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'projects' %}">
               <img src="{% static 'Klucz.png' %}" alt="" >
               Projekty
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'posts' %}">
               <img src="{% static 'pytania.png' %}" alt="" >
               Pytania i odpowiedzi
             </a>
@@ -52,7 +53,7 @@
         </form>
       </div>
     </nav>
-<div class="content">
+<div class="container" style="margin-top: 100px;">
   {% block content %}
   {% endblock %}
 </div>
