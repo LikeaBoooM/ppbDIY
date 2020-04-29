@@ -1,25 +1,29 @@
 {% extends 'app/base.html'%}
 {% block flexcontent %}
-{% for post in posts %}
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Author</th>
-        <th scope="col">Title</th>
-        <th scope="col">Content</th>
-        <th scope="col">Count of answears</th>
-        <th scope="col">Go to post</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">{{post.author}}</th>
-        <td>{{post.title}}</td>
-        <td>{{post.content}}</td>
-        <td>{{post.id}}</td>
-        <td><a href="{% url 'post_detail' post.id %}"><button class="btn btn-outline-info" type="submit">Post</button></a></td>
-      </tr>
-    </tbody>
-  </table>
-{% endfor %}
+      {% for post in posts %}
+      <div class="container my-4 px-4">
+        <div class="row">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-none d-sm-block wierszzapytania">
+              <div class="zdj_prof">
+                <img class="zdj" src="{{ post.author.profile.image.url }}" alt="" >
+              </div>
+            </div>
+            <div class="col wierszzapytania pt-2 pl-4 pl-sm-0">
+              <div class="row">{{ post.author }} napisał(a):</div>
+              <div class="row trescpytania pr-sm-5 pr-3 pl-3">{{ post.content }}</div>
+              <a class="btn btn-warning" href="{% url 'post-detail' post.id%}">Give answear</a>
+            </div>
+            {% if post.author == user %}
+        <div>
+        <a class="btn btn-outline-secondary" href="{% url 'post-update' post.id %}">Update post</a>
+        <a class="btn btn-outline-danger"href="{% url 'post-delete' post.id %}">Delete post</a>
+        </div>
+        {% endif %}
+          </div>
+          
+          <div class="row">
+            <hr style="width:100%;text-align:left;margin-left:0">
+          </div>
+        </div>
+      {% endfor %}
 {% endblock%}

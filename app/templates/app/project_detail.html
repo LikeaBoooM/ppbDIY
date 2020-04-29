@@ -1,0 +1,26 @@
+{% extends 'app/base.html'%}
+{% block content %}
+<div class="container my-4 px-4">
+    <div class="row">
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-none d-sm-block wierszzapytania">
+          <div class="zdj_prof">
+            <img class="zdj" src="{{ project.author.profile.image.url }}" alt="" >
+          </div>
+        </div>
+        <div class="col wierszzapytania pt-2 pl-4 pl-sm-0">
+          <div class="row">{{ project.author }} napisał(a):</div>
+          <div class="row trescpytania pr-sm-5 pr-3 pl-3">{{ project.content }}</div>
+        </div>
+        {% if project.author == user %}
+        <div>
+        <a class="btn btn-outline-secondary" href="{% url 'project-update' project.id %}">Update project</a>
+        <a class="btn btn-outline-danger"href="{% url 'project-delete' project.id %}">Delete project</a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="row">
+        <hr style="width:100%;text-align:left;margin-left:0">
+      </div>
+    </div>
+{% endblock %}
+{% load static %}
