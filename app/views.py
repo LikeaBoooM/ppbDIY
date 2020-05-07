@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from . forms import PostForm, CommentForm, ProjectForm
-from . models import Post, User, Comment, Project
+from . forms import PostForm, CommentFormPost, CommentFormProject, ProjectForm
+from . models import Post, User, CommentProject, CommentPost, Project
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # Create your views here.
@@ -84,9 +84,11 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == post.author:
             return True
         return False
+        
 class ProjectUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Project
     fields = ['title','description',]
+    template_name = 'app/project_update.html'
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -100,16 +102,16 @@ class ProjectUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 def PostDetail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = Comment.objects.filter(post=post).order_by('-id')
+    comments = CommentPost.objects.filter(post=post).order_by('-id')
     if request.method == 'POST':
-        form = CommentForm(request.POST)
+        form = CommentFormPost(request.POST)
         if form.is_valid():
             content = request.POST.get('content')
-            comment = Comment.objects.create(post=post, author = request.user, content=content)
+            comment = CommentPost.objects.create(post=post, author = request.user, content=content)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
     else :
-        form = CommentForm()
+        form = CommentFormPost()
 
     stuff_for_frontend = {
         'object' : post,
@@ -118,17 +120,27 @@ def PostDetail(request, pk):
     }
 
     return render(request, 'app/post_detail.html', stuff_for_frontend)
-    
-class ProjectDetail(DetailView):
-    model = Project 
-    template_name = 'app/project_detail.html'
 
-def ProjectDetail1(request, pk):
+def ProjectDetail(request, pk):
     project = get_object_or_404(Project, pk=pk)
-    projectid = Project.objects.filter(pk=pk).first().id
+    comments = CommentProject.objects.filter(project=project).order_by('-id')
+
+    if request.method == 'POST':
+        form = CommentFormProject(request.POST)
+        if form.is_valid():
+            content = request.POST.get('content')
+            comment = CommentProject.objects.create(project=project, author=request.user, content=content)
+            comment.save()
+            return HttpResponseRedirect(project.get_absolute_url())
+    else :
+        form = CommentFormProject()
     
     stuff_for_frontend = {
-        'project' : project,
-        'projectid': projectid,
+        'object' : project,
+        'comments' : comments,
+        'form' : form,
     }
-    return render(request, 'app/project_detail.html',stuff_for_frontend)
+
+    return render(request, 'app/project_detail.html', stuff_for_frontend)
+    
+

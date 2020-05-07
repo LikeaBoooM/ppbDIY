@@ -18,27 +18,17 @@ class Post(models.Model):
         return self.content
     
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'pk': self.pk})
+        return reverse('post-detail', kwargs={'pk': self.pk})
     
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         
 
-
-class Comment(models.Model):
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    ddate_posted = models.DateTimeField(default=timezone.now)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, default = None )
-
-    def __str__(self):
-        return self.author
-
 class Project(models.Model):
     title = models.CharField(max_length=32, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
-    miniature = models.ImageField(default='profile_pics/default.png', upload_to='images')
+    miniature = models.ImageField(default='static/arduino.jpg', upload_to='images')
     #description = RichTextField(blank=True, null=True)
     description = RichTextUploadingField(blank=True, null=True)
 
@@ -51,3 +41,22 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
+
+class CommentPost(models.Model):
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    ddate_posted = models.DateTimeField(default=timezone.now)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.author
+
+class CommentProject(models.Model):
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    ddate_posted = models.DateTimeField(default=timezone.now)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return self.author
+       

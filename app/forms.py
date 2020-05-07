@@ -1,15 +1,21 @@
 from django import forms
-from . models import Post, Comment, Project
+from . models import Post, CommentProject,CommentPost, Project
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content',]
 
-class CommentForm(forms.ModelForm):
+class CommentFormProject(forms.ModelForm):
     class Meta:
-        model = Comment
+        model = CommentProject
         fields = ['content']
+
+class CommentFormPost(forms.ModelForm):
+    class Meta:
+        model = CommentPost
+        fields = ['content']
+
 
 class ProjectForm(forms.ModelForm):
     class Meta:

@@ -11,9 +11,15 @@
 </head>
 <body>
   <body>
+    {% if user.is_authenticated %}
     <div class="logowanie" >
-      <a href="{% url 'login' %}">Logowanie</a>/<a href="{% url 'register' %}">Rejestracja</a></div>
-    
+      <a class="logowanie1" href="{% url 'logout' %}">Wyloguj</a>
+    </div>
+    {% else%}
+    <div class="logowanie" >
+      <a class="logowanie1" href="{% url 'login' %}">Logowanie</a>/<a class="logowanie1" href="{% url 'register' %}">Rejestracja</a>
+    </div>
+    {% endif%}
     <div class="logo">
       <a class="logotext1">JDIY.com</a></br>
       <a class="logotext2">JUST DO IT YOURSELF ...</a>
@@ -54,6 +60,8 @@
       </div>
     </nav>
 {% block scontent %}
+{% endblock %}
+{% block content-list %}
 {% endblock %}
 <div class="container">
   {% block content %}

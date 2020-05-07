@@ -1,12 +1,19 @@
 {% extends 'app/base.html'%}
-{% block flexcontent %}
-{% for post in projects %}
-    <div class="card-body">
-        <img src="{{ post.miniature }}" alt="">
-    <h5 class="card-title">{{post.title}}</h5>
-    {{post.author}}
-    <p class="card-text">{{post.description|safe}}</p>
-    <a href="{% url 'project-detail' post.id %}" class="btn btn-primary">Go to project</a>
-    </div>
+{% load static %}
+{% block content-list %}
+<div class="container-fluid my-4">
+<div class="col-12">
+<div class="row">
+{% for project in projects %}  
+	<a href="{% url 'project-detail' project.id %}"><div class="col-lg-6 col-md-12 oferta_zdjecie" style="background-image: url('{{project.miniature}}');">
+		<div class="title_bar">
+			<p class="twolane">{{ project.title }}</p>
+			<a class="napis_srednia">Średnia ocen: 5</a>
+		</div>
+	</div>		
+</a>
 {% endfor %}
+</div>
+</div>
+</div>
 {% endblock%}
