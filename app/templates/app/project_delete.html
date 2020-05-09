@@ -10,8 +10,8 @@
                 <h2>Czy jesteś pewny, że chcesz usunąć swój projekt "{{ object.title }}"</h2>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">Yes, Delete </button>
-                <a class="btn btn-warning" href="{% url 'project-detail' object.id %}">Cancel</a>
+                <button class="btn btn-outline-danger" type="submit">Tak chcę usunąć projekt</button>
+                <a class="btn btn-warning" href="{% url 'project-detail' object.id %}">Nie usuwaj projektu</a>
             </div>
         </form>
     </div>

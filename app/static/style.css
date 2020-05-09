@@ -594,3 +594,13 @@ a.lol{
 	color:black !important;
 }
 
+.formDodawaniaProjektu{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+p img{
+	max-width: 100% !important;
+	height: auto !important;
+}
+

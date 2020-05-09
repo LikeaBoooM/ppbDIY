@@ -5,12 +5,12 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Delete Post</legend>
-                <h2>Are you sure, you want to delete the "{{ object.title }}"</h2>
-            </legend>
+                <legend class="border-bottom mb-4">Usuwanie pytania</legend>
+                <h2>Czy jesteś pewny, że chcesz usunąć swoje pytanie "{{ object.title }}"</h2>
+            </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">Yes, Delete </button>
-                <a class="btn btn-outline-secondary" href="{% url 'posts' %}">Cancel</a>
+                <button class="btn btn-outline-danger" type="submit">Tak chce usunąć pytanie </button>
+                <a class="btn btn-warning" href="{% url 'posts' %}">Nie usuwaj pytania</a>
             </div>
         </form>
     </div>
