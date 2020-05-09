@@ -597,6 +597,7 @@ a.lol{
 .formDodawaniaProjektu{
 	padding-left: 10px;
 	padding-right: 10px;
+
 }
 
 p img{
@@ -604,3 +605,15 @@ p img{
 	height: auto !important;
 }
 
+.textalignright{
+	text-align: right;
+}
+
+div #div_id_miniature div{
+
+}
+
+
+div #div_id_miniature div input {
+
+}
