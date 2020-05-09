@@ -16,8 +16,8 @@
         <a class="tytułpytania2">{{object.title}}</a> 
         {% if object.author == user %}
         <div>
-        <a class="btn btn-outline-secondary" href="{% url 'project-update' object.id %}">Update project</a>
-        <a class="btn btn-outline-danger"href="{% url 'project-delete' object.id %}">Delete project</a>
+        <a class="btn btn-outline-secondary" href="{% url 'post-update' object.id %}">Update project</a>
+        <a class="btn btn-outline-danger"href="{% url 'post-delete' object.id %}">Delete project</a>
         </div>
         {% endif %}
 				<hr />

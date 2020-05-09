@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_CONFIGS = { 'default': 
-                         { 'toolbar': 'Custom', 'height': 500, 'toolbar_Custom': 
+                         { 'toolbar': 'Custom', 'max-height': 400, 'width': '100%', 'toolbarCanCollapse': True, 'toolbar_Custom': 
                              [ 
                                  ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
                                  ['Link', 'Unlink', 'Anchor'], 
@@ -59,7 +59,10 @@ CKEDITOR_CONFIGS = { 'default':
                         'special': {'toolbar': 'Special', 'toolbar_Special':
                             [['Bold'], ['CodeSnippet'],], 
                             'extraPlugins': 'codesnippet',
-                            }
+                            },
+'filebrowserWindowHeight': 725,
+'filebrowserWindowWidth': 940,
+'toolbarCanCollapse': True,                          
 }
                           
 MIDDLEWARE = [
