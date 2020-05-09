@@ -2,15 +2,16 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="flexbox-container3">
-    <div>
-    <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="" style="margin-top: 20px;">
-        <div class="media-body">
-            <div class="article-metadata">
-            <a class="mr-2" href="#">{{ object.author }}</a>
-            <a class="mr-2" href="#">{{ object.desription }}</a>
-            </div>
-        </article>
+        <div>
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="" style="margin-top: 20px;">
+                <div class="media-body">
+                    <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ object.author }}</a>
+                    <a class="mr-2" href="#">{{ object.desription }}</a>
+                    </div>
+                </div>
+            </article>
+        </div>
     </div>
-</div>
 {% endblock %}

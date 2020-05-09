@@ -1,14 +1,15 @@
 {% extends 'app/base.html' %}
 {% load crispy_forms_tags %}
 {% block flexcontent %}
-        <form method="POST">
+        <form method="POST" class="formDodawaniaProjektu">
             {% csrf_token %}
-            <legend class="border-bottom mb-4">Blog Post</legend>
+            <legend class="border-bottom mb-4 textalignright">Tworzenie projektu</legend>
                 {{form|crispy}}
                 <div class="form-group">
                 {{form.media}}
             </div>
-                <button class="btn btn-outline-info" type="submit">Post</button>
+            <div class="textalignright custom-file-label">
+            <button class="btn btn-warning" type="submit">Dodaj</button>
             </div>
         </form>
     </div>

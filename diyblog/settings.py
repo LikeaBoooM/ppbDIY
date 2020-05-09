@@ -47,6 +47,7 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_CONFIGS = { 'default': 
                          { 'toolbar': 'Custom', 'max-height': 400, 'width': '100%', 'toolbarCanCollapse': True, 'toolbar_Custom': 
+                         { 'toolbar': 'Custom', 'height': 500, 'width': '100%', 'toolbar_Custom':
                              [ 
                                  ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
                                  ['Link', 'Unlink', 'Anchor'], 
