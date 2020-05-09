@@ -27,12 +27,6 @@
         </div>
 
 
-				<div class="col wierszzapytania pt-2 pl-4 pl-sm-0">
-        <a class="tytułpytania2">{{object.title}}</a> 
-        {% if object.author == user %}
-        <div>
-        <a class="btn btn-outline-secondary" href="{% url 'post-update' object.id %}">Update project</a>
-        <a class="btn btn-outline-danger"href="{% url 'post-delete' object.id %}">Delete project</a>
         <div class="row py-3">
             <hr style="width:100%;text-align:left;margin-left:0">
         </div>
