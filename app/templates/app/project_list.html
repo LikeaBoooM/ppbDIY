@@ -1,19 +1,18 @@
 {% extends 'app/base.html'%}
 {% load static %}
 {% block content-list %}
-<div class="container-fluid my-4">
-<div class="col-12">
-<div class="row">
-{% for project in projects %}  
-	<a href="{% url 'project-detail' project.id %}"><div class="col-lg-6 col-md-12 oferta_zdjecie" style="background-image: url('{{project.miniature}}');">
-		<div class="title_bar">
-			<p class="twolane">{{ project.title }}</p>
-			<a class="napis_srednia">Średnia ocen: 5</a>
-		</div>
-	</div>		
-</a>
-{% endfor %}
-</div>
-</div>
-</div>
+    <div class="container-fluid my-4">
+        <div class="col-12">
+            <div class="row">
+                {% for project in projects %}
+                    <div onclick="location.href='{% url 'project-detail' project.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie cursor-pointer" style="background-image: url('{{project.miniature}}');" >
+                        <div class="title_bar">
+                            <p class="onelane1">{{ project.title }}</p>
+                            <a class="napis_srednia">Średnia ocen: 5</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock%}
