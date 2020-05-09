@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,27 +44,27 @@ INSTALLED_APPS = [
 ]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
-CKEDITOR_CONFIGS = { 'default': 
-                         { 'toolbar': 'Custom', 'max-height': 400, 'width': '100%', 'toolbarCanCollapse': True, 'toolbar_Custom': 
-                         { 'toolbar': 'Custom', 'height': 500, 'width': '100%', 'toolbar_Custom':
-                             [ 
-                                 ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
-                                 ['Link', 'Unlink', 'Anchor'], 
-                                 ['Image', 'Flash', 'Table', 'HorizontalRule'], 
-                                 ['TextColor', 'BGColor'], 
-                                 ['Smiley', 'SpecialChar'], 
-                                 ['Source','CodeSnippet'],
-                             ],'extraPlugins': 'codesnippet'
-                           }, 
-                        'special': {'toolbar': 'Special', 'toolbar_Special':
-                            [['Bold'], ['CodeSnippet'],], 
-                            'extraPlugins': 'codesnippet',
-                            },
-'filebrowserWindowHeight': 725,
-'filebrowserWindowWidth': 940,
-'toolbarCanCollapse': True,                          
-}
-                          
+CKEDITOR_CONFIGS = {'default':
+                        {'toolbar': 'Custom', 'height': 500, 'width': '100%', 'toolbar_Custom':
+                            [
+                                ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo',
+                                 'Redo'],
+                                ['Link', 'Unlink', 'Anchor'],
+                                ['Image', 'Flash', 'Table', 'HorizontalRule'],
+                                ['TextColor', 'BGColor'],
+                                ['Smiley', 'SpecialChar'],
+                                ['Source', 'CodeSnippet'],
+                            ], 'extraPlugins': 'codesnippet'
+                         },
+                    'special': {'toolbar': 'Special', 'toolbar_Special':
+                        [['Bold'], ['CodeSnippet'], ],
+                                'extraPlugins': 'codesnippet',
+                                },
+                    'filebrowserWindowHeight': 725,
+                    'filebrowserWindowWidth': 940,
+                    'toolbarCanCollapse': True,
+                    }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -81,7 +80,7 @@ ROOT_URLCONF = 'diyblog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,7 +95,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'diyblog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -106,7 +104,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -126,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -140,7 +136,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -150,7 +145,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 LOGIN_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
