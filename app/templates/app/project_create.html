@@ -1,14 +1,14 @@
 {% extends 'app/base.html' %}
 {% load crispy_forms_tags %}
 {% block flexcontent %}
-        <form method="POST" class="formDodawaniaProjektu">
+        <form method="POST" class="formDodawaniaProjektu" enctype="multipart/form-data">
             {% csrf_token %}
             <legend class="border-bottom mb-4 textalignright">Tworzenie projektu</legend>
                 {{form|crispy}}
                 <div class="form-group">
                 {{form.media}}
             </div>
-            <div class="textalignright custom-file-label">
+            <div class="textalignright">
             <button class="btn btn-warning" type="submit">Dodaj</button>
             </div>
         </form>

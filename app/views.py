@@ -4,6 +4,7 @@ from . forms import PostForm, CommentFormPost, CommentFormProject, ProjectForm
 from . models import Post, User, CommentProject, CommentPost, Project
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse
 # Create your views here.
 
 def home(request):
@@ -11,25 +12,27 @@ def home(request):
 
 def add_project(request):
     if request.method == 'POST':
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            descriptione = request.POST.get('description')
-            title = request.POST.get('title')
-            project_form = Project.objects.create(title=title, author=request.user, description=descriptione)
-            project_form.save()
-            return redirect('home')
+            project = form.save(commit=False)
+            project.author = request.user
+            project.save() 
+            return redirect('projects')
     else:
         form = ProjectForm()
     
-    variable ='variable'
-
-    return render(request, 'app/project_create.html', {'form':form , 'variable' : variable})
-    
+    return render(request, 'app/project_create.html', {'form':form })
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
     template_name = 'app/project_create.html'
-    fields = ['title','description',]
+    fields = ['title','miniature','description',]
+
+    def form_valid(self, form_class):
+        post = form_class.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('projects'))
+
 
 class ProjectView(ListView):
     model = Project
@@ -45,6 +48,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
     template = 'app/post_form.html'
+    
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -87,7 +91,7 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         
 class ProjectUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Project
-    fields = ['title','description',]
+    fields = ['title','miniature','description',]
     template_name = 'app/project_update.html'
     
     def form_valid(self, form):

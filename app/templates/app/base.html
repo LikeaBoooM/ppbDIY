@@ -21,7 +21,7 @@
 <body>
         {% if user.is_authenticated %}
             <div class="logowanie" >
-              <a class="logowanie1" href="{% url 'logout' %}">Wyloguj</a>
+              <a class="logowanie1" href="{% url 'profile' %}">Profil</a>/<a class="logowanie1" href="{% url 'logout' %}">Wyloguj</a>
             </div>
         {% else%}
             <div class="logowanie" >
