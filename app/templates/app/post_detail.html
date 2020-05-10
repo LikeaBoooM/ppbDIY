@@ -22,6 +22,10 @@
                         <a class="btn btn-warning" href="{% url 'post-update' object.id %}">Edycja pytania</a>
                         <a class="btn btn-warning"href="{% url 'post-delete' object.id %}">Usuń pytanie</a>
                     </div>
+                {% elif request.user.is_superuser%}
+                    <div class="col wierszzapytania text-right pb-3">
+                        <a class="btn btn-warning"href="{% url 'post-delete' object.id %}">Usuń pytanie</a>
+                    </div>
                 {% endif %}
             </div>
         </div>

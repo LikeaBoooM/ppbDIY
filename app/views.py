@@ -8,7 +8,19 @@ from django.urls import reverse
 # Create your views here.
 
 def home(request):
-    return render(request, 'app/home.html')
+    posts = Post.objects.order_by('-date_posted')[0:3]
+    project0 = Project.objects.order_by('-date_posted')[0]
+    project1 = Project.objects.order_by('-date_posted')[1]
+    project2 = Project.objects.order_by('-date_posted')[2]
+    project3 = Project.objects.order_by('-date_posted')[3]
+    stuff_for_frontend = {
+        'posts' : posts,
+        'project0' : project0,
+        'project1' : project1,
+        'project2' : project2,
+        'project3' : project3,
+    }
+    return render(request, 'app/home.html', stuff_for_frontend)
 
 def add_project(request):
     if request.method == 'POST':
@@ -38,11 +50,13 @@ class ProjectView(ListView):
     model = Project
     template_name = 'app/project_list.html'
     context_object_name = 'projects'
+    paginate_by = 6
 
 class PostList(ListView):
     model = Post
     template_name = 'app/posts.html'
     context_object_name = 'posts'
+    paginate_by = 10
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
@@ -61,7 +75,7 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
+        if self.request.user == post.author or self.request.user.is_superuser:
             return True
         return False
 class ProjectDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -71,7 +85,7 @@ class ProjectDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         project = self.get_object()
-        if self.request.user == project.author:
+        if self.request.user == project.author or self.request.user.is_superuser:
             return True
         return False
 
@@ -85,7 +99,7 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
+        if self.request.user == post.author or self.request.user.is_superuser:
             return True
         return False
         
@@ -100,7 +114,7 @@ class ProjectUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     def test_func(self):
         project = self.get_object()
-        if self.request.user == project.author:
+        if self.request.user == project.author or self.request.user.is_superuser :
             return True
         return False
 

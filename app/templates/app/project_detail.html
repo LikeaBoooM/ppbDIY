@@ -44,10 +44,14 @@
               </div>
               <div class="row pr-3 pl-3 pb-3">{{object.description|safe}}</div>
               <div class="row">
-                {% if object.author == user %}
+                {% if object.author == user  %}
                     <div class="col wierszzapytania text-right pb-3">
                         <a class="btn btn-warning" href="{% url 'project-update' object.id %}">Edycja projektu</a>
                         <a class="btn btn-warning"href="{% url 'project-delete' object.id %}">Usuń projekt</a>
+                    </div>
+                {% elif user.is_superuser%}
+                    <div class="col wierszzapytania text-right pb-3">
+                      <a class="btn btn-warning"href="{% url 'project-delete' object.id %}">Usuń projekt</a>
                     </div>
                 {% endif %}
             </div>

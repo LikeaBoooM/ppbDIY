@@ -557,18 +557,17 @@ a.lol{
     justify-content: space-around;
     align-items: center;
     display: flex;
-    margin-bottom: 5rem;
-    margin-top: 5rem;
+	margin-top: 5rem;
+	margin-bottom: 5rem;
     flex-direction: column;
  }
 
-.flexbox-container{
+.flexbox-container2{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    display: flex;
-    margin-bottom: 5rem;
+	display: flex;
     margin-top: 5rem;
     flex-direction: column;
 }
