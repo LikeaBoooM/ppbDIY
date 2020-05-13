@@ -7,7 +7,6 @@
                 {% for project in projects %}
                     <div onclick="location.href='{% url 'project-detail' project.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie cursor-pointer" style="background-image: url('{{project.miniature.url}}');" >
                         <div class="title_bar">
-                            {{ project.miniature }}
                             <p class="onelane1">{{ project.title }}</p>
                             <a class="napis_srednia">Średnia ocen: 5</a>
                         </div>
