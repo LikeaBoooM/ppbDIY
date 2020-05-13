@@ -9,18 +9,48 @@ from django.urls import reverse
 
 def home(request):
     posts = Post.objects.order_by('-date_posted')[0:3]
-    project0 = Project.objects.order_by('-date_posted')[0]
-    project1 = Project.objects.order_by('-date_posted')[1]
-    project2 = Project.objects.order_by('-date_posted')[2]
-    project3 = Project.objects.order_by('-date_posted')[3]
+    projects = Project.objects.all().count()
+    print(projects)
+    projects_to_front = []
+    if projects == 0:
+        message = 'Cant find anything'
+    elif projects == 1:
+        project0 = Project.objects.order_by('-date_posted')[0]
+        projects_to_front.append(project0)
+        print(projects_to_front.__len__())
+    elif projects == 2:
+        project0 = Project.objects.order_by('-date_posted')[0]
+        project1 = Project.objects.order_by('-date_posted')[1]
+        projects_to_front.append(project0)
+        projects_to_front.append(project1)
+        print(projects_to_front.__len__())
+    elif projects == 3:
+        print("costam")
+        project0 = Project.objects.order_by('-date_posted')[0]
+        project1 = Project.objects.order_by('-date_posted')[1]
+        project2 = Project.objects.order_by('-date_posted')[2]
+        projects_to_front.append(project0)
+        projects_to_front.append(project1)
+        projects_to_front.append(project2)
+        print(project1.id)
+        print(projects_to_front.__len__())
+    elif projects > 3:
+        project0 = Project.objects.order_by('-date_posted')[0]
+        project1 = Project.objects.order_by('-date_posted')[1]
+        project2 = Project.objects.order_by('-date_posted')[2]
+        project3 = Project.objects.order_by('-date_posted')[3]
+        projects_to_front.append(project0)
+        projects_to_front.append(project1)
+        projects_to_front.append(project2)
+        projects_to_front.append(project3)
+        print(projects_to_front.__len__())
+
     stuff_for_frontend = {
-        'posts' : posts,
-        'project0' : project0,
-        'project1' : project1,
-        'project2' : project2,
-        'project3' : project3,
+        'posts': posts,
+        'projects_to_front': projects_to_front,
     }
     return render(request, 'app/home.html', stuff_for_frontend)
+
 
 def add_project(request):
     if request.method == 'POST':
@@ -70,7 +100,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/'
+    success_url = '/posts'
     template_name = 'app/post_delete.html'
 
     def test_func(self):
@@ -80,7 +110,7 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 class ProjectDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Project
-    success_url = '/'
+    success_url = '/projects'
     template_name = 'app/project_delete.html'
 
     def test_func(self):
