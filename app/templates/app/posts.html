@@ -10,7 +10,7 @@
                 </div>
               </div>
 
-              <div onclick="location.href='{% url 'post-detail' post.id%}'" class="col wierszzapytania pt-3 pl-4 pl-sm-0 pb-3 cursor-pointer">
+              <div onclick="location.href='{% url 'post-detail' post.slug %}'" class="col wierszzapytania pt-3 pl-4 pl-sm-0 pb-3 cursor-pointer">
                 <div class="row pl-3 tytpostaglowna" style="margin-top: 10px;"><i>{{ post.title }}</i></div>
                 <div class="row trescpytania pr-sm-3 pr-3 pl-3">{{ post.content }}</div>
               </div>

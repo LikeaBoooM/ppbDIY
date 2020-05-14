@@ -98,23 +98,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
-class CommentPostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = CommentPost
-    template_name = 'app/comment-post-delete.html'
-    success_url = '/'
-    
-    def get_success_url(self):
-        return reverse('post-detail', kwargs={'slug': self.object.post})
-        
-    def test_func(self):
-        comment = self.get_object()
-        if self.request.user == comment.author or self.request.user.is_superuser:
-            return True
-        return False
-
-    
-
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/posts'
@@ -125,7 +108,6 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author or self.request.user.is_superuser:
             return True
         return False
-
 class ProjectDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Project
     success_url = '/projects'
@@ -166,8 +148,8 @@ class ProjectUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-def PostDetail(request, slug):
-    post = get_object_or_404(Post, slug=slug)
+def PostDetail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     comments = CommentPost.objects.filter(post=post).order_by('-id')
     if request.method == 'POST':
         form = CommentFormPost(request.POST)

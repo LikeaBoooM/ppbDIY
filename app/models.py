@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from PIL import Image
 from ckeditor.fields import RichTextField
+from django.template.defaultfilters import slugify
 from ckeditor_uploader.fields import RichTextUploadingField
 #from . models import User
 # Create your models here.
@@ -13,14 +14,17 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=40, unique=True)
+    
 
     def __str__(self):
         return str(self.content)
     
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
+        return reverse('post-detail', kwargs={'slug': self.slug})
     
     def save(self, *args, **kwargs):
+        self.slug = self.slug or slugify(self.title)
         super(Post, self).save(*args, **kwargs)
         
 
