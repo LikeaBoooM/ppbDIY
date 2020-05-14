@@ -4,7 +4,7 @@ from . models import Post, CommentProject,CommentPost, Project
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content',]
+        fields = ['title', 'content']
 
 class CommentFormProject(forms.ModelForm):
     class Meta:
@@ -18,6 +18,7 @@ class CommentFormPost(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
+    #miniature = forms.ImageField(widget=forms.ClearableFileInput(attrs={'class':'trool'}))
     class Meta:
         model = Project
         fields = ['title','miniature','description',]

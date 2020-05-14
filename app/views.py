@@ -7,33 +7,31 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse
 # Create your views here.
 
+
 def home(request):
-    posts = Post.objects.order_by('-date_posted')[0:3]
     projects = Project.objects.all().count()
-    print(projects)
+    posts = Post.objects.all().count()
+
+    posts_to_front = []
     projects_to_front = []
+
     if projects == 0:
         message = 'Cant find anything'
     elif projects == 1:
         project0 = Project.objects.order_by('-date_posted')[0]
         projects_to_front.append(project0)
-        print(projects_to_front.__len__())
     elif projects == 2:
         project0 = Project.objects.order_by('-date_posted')[0]
         project1 = Project.objects.order_by('-date_posted')[1]
         projects_to_front.append(project0)
         projects_to_front.append(project1)
-        print(projects_to_front.__len__())
     elif projects == 3:
-        print("costam")
         project0 = Project.objects.order_by('-date_posted')[0]
         project1 = Project.objects.order_by('-date_posted')[1]
         project2 = Project.objects.order_by('-date_posted')[2]
         projects_to_front.append(project0)
         projects_to_front.append(project1)
         projects_to_front.append(project2)
-        print(project1.id)
-        print(projects_to_front.__len__())
     elif projects > 3:
         project0 = Project.objects.order_by('-date_posted')[0]
         project1 = Project.objects.order_by('-date_posted')[1]
@@ -43,10 +41,27 @@ def home(request):
         projects_to_front.append(project1)
         projects_to_front.append(project2)
         projects_to_front.append(project3)
-        print(projects_to_front.__len__())
+
+    if posts == 0:
+        message = 'Cant find anything'
+    elif posts == 1:
+        post0 = Post.objects.order_by('-date_posted')[0]
+        posts_to_front.append(post0)
+    elif posts == 2:
+        post0 = Post.objects.order_by('-date_posted')[0]
+        post1 = Post.objects.order_by('-date_posted')[1]
+        posts_to_front.append(post0)
+        posts_to_front.append(post1)
+    else:
+        post0 = Post.objects.order_by('-date_posted')[0]
+        post1 = Post.objects.order_by('-date_posted')[1]
+        post2 = Post.objects.order_by('-date_posted')[2]
+        posts_to_front.append(post0)
+        posts_to_front.append(post1)
+        posts_to_front.append(post2)
 
     stuff_for_frontend = {
-        'posts': posts,
+        'posts_to_front': posts_to_front,
         'projects_to_front': projects_to_front,
     }
     return render(request, 'app/home.html', stuff_for_frontend)
@@ -105,7 +120,7 @@ class CommentPostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = '/'
     
     def get_success_url(self):
-        return reverse('post-detail', kwargs={'slug': self.object.post})
+        return reverse('post-detail', kwargs={'slug': self.object.post.slug})
         
     def test_func(self):
         comment = self.get_object()
@@ -113,7 +128,21 @@ class CommentPostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-    
+
+class CommentProjectDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = CommentProject
+    template_name = 'app/comment-project-delete.html'
+    success_url = '/'
+
+    def get_success_url(self):
+        return reverse('project-detail', kwargs={'pk': self.object.project.id})
+
+    def test_func(self):
+        comment = self.get_object()
+        if self.request.user == comment.author or self.request.user.is_superuser:
+            return True
+        return False
+
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post

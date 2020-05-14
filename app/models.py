@@ -29,11 +29,10 @@ class Post(models.Model):
         
 
 class Project(models.Model):
-    title = models.CharField(max_length=32, blank=True, null=True)
+    title = models.CharField(max_length=100, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
     miniature = models.ImageField(upload_to='static/', default='static/arduino.jpg')
-    #description = RichTextField(blank=True, null=True)
     description = RichTextUploadingField(blank=True, null=True)
 
 
@@ -49,6 +48,7 @@ class Project(models.Model):
     def upload_image(self, filename):
         return 'post/{}/{}'.format(self.title, filename)
 
+
 class CommentPost(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -57,6 +57,7 @@ class CommentPost(models.Model):
 
     def __str__(self):
         return self.author
+
 
 class CommentProject(models.Model):
     content = models.TextField()
