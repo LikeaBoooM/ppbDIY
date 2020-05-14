@@ -15,9 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
+from users import views as userviews
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as authviwes
 
 urlpatterns = [
     path('', include('app.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
+    path('register/', userviews.register, name='register'),
+    path('login/', authviwes.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('logout/', authviwes.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('profile/', userviews.profile, name='profile'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

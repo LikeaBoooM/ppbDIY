@@ -1,3 +1,121 @@
 {% extends 'app/base.html'%}
-{% block content%}
-{% endblock%}
+{% load static %}
+{% block contentf %}
+<div class="container-fluid my-4">
+    <div class="col-12">
+        <div class="row">
+            {% if projects_to_front|length == 0  %}
+             asdasdasdasd
+            {% elif projects_to_front|length == 1  %}
+                <div onclick="location.href='{% url 'project-detail' projects_to_front.0.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie" style="background-image: url('{{projects_to_front.0.miniature.url}}');">
+                    <div class="title_bar">
+                        <p class="twolane">{{projects_to_front.0.title}}</p>
+                        <a class="napis_srednia">Średnia ocen: 5</a>
+                    </div>
+                </div>
+            {% elif projects_to_front|length == 2  %}
+                <div onclick="location.href='{% url 'project-detail' projects_to_front.0.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie" style="background-image: url('{{projects_to_front.0.miniature.url}}');">
+                    <div class="title_bar">
+                        <p class="twolane">{{projects_to_front.0.title}}</p>
+                        <a class="napis_srednia">Średnia ocen: 5</a>
+                    </div>
+                </div>
+                <div onclick="location.href='{% url 'project-detail' projects_to_front.1.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie" style="background-image: url('{{projects_to_front.1.miniature.url}}');">
+                    <div class="title_bar">
+                        <p class="twolane">{{projects_to_front.1.title}}</p>
+                        <a class="napis_srednia">Średnia ocen: 5</a>
+                    </div>
+                </div>
+            {% elif projects_to_front|length == 3  %}
+                <div onclick="location.href='{% url 'project-detail' projects_to_front.0.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie" style="background-image: url('{{projects_to_front.0.miniature.url}}');">
+                        <div class="title_bar">
+                            <p class="twolane">{{projects_to_front.0.title}}</p>
+                            <a class="napis_srednia">Średnia ocen: 5</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4 ">
+                        <div class="row ">
+                            <div onclick="location.href='{% url 'project-detail' projects_to_front.1.id %}'" class="col-lg-12 col-md-12 oferta_zdjecie1" style="background-image: url('{{projects_to_front.1.miniature.url}}');">
+                                <div class="title_bar_onelane">
+                                    <p class="onelane">{{projects_to_front.1.title}}</p>
+                                    <a class="napis_srednia">Średnia ocen: 5</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div onclick="location.href='{% url 'project-detail' projects_to_front.2.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie1" style="background-image: url('{{projects_to_front.2.miniature.url}}');">
+                                <div class="title_bar_twosmalllane ">
+                                    <p class="twosmalllane">{{projects_to_front.2.title}}</p>
+                                    <a class="napis_srednia">Średnia ocen: 5</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            {% else %}
+                    <div onclick="location.href='{% url 'project-detail' projects_to_front.0.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie" style="background-image: url('{{projects_to_front.0.miniature.url}}');">
+                        <div class="title_bar">
+                            <p class="twolane">{{projects_to_front.0.title}}</p>
+                            <a class="napis_srednia">Średnia ocen: 5</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4 ">
+                        <div class="row ">
+                            <div onclick="location.href='{% url 'project-detail' projects_to_front.1.id %}'" class="col-lg-12 col-md-12 oferta_zdjecie1" style="background-image: url('{{projects_to_front.1.miniature.url}}');">
+                                <div class="title_bar_onelane">
+                                    <p class="onelane">{{projects_to_front.1.title}}</p>
+                                    <a class="napis_srednia">Średnia ocen: 5</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div onclick="location.href='{% url 'project-detail' projects_to_front.2.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie1" style="background-image: url('{{projects_to_front.2.miniature.url}}');">
+                                <div class="title_bar_twosmalllane ">
+                                    <p class="twosmalllane">{{projects_to_front.2.title}}</p>
+                                    <a class="napis_srednia">Średnia ocen: 5</a>
+                                </div>
+                            </div>
+                            <div onclick="location.href='{% url 'project-detail' projects_to_front.3.id %}'" class="col-lg-6 col-md-12 oferta_zdjecie1" style="background-image: url('{{projects_to_front.3.miniature.url}}');">
+                                <div class="title_bar_twosmalllane ">
+                                    <p class="twosmalllane">{{projects_to_front.3.title}}</p>
+                                    <a class="napis_srednia">Średnia ocen: 5</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+  <div class="container my-4 px-4">
+    <div class="col-12 ">
+      <div class="row mb-5 mt-5 pl-md-3">
+      <u class="najnowsze_pytania">NAJNOWSZE PYTANIA UŻYTKOWNIKÓW</u>
+      </div>
+      
+      {% for post in posts %}
+        <div class="row ">
+          <div class="col-6 col-sm-5 col-md-4 col-lg-3 py-3 d-none d-sm-block wierszzapytania">
+            <div class="row text-letf pl-3">
+              <img class="zdjglowna" src="{{ post.author.profile.image.url }}" alt="" >
+            </div>
+          </div>
+          <div class="col wierszzapytania pt-3 pl-4 pl-sm-0 pb-3">
+            <div class="row pl-3 tytpostaglowna"><i>{{post.title}}</i></div>
+            <div class="row trescpytania pr-sm-5 pr-3 pl-3">{{post.content}}</div>
+          </div>
+        </div>
+                  <div class="row">
+          <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+        {% endfor %}
+
+        
+    </div>
+  </div>	
+  
+
+{% endblock %}

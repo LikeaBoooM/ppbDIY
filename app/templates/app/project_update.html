@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% block flexcontent %}
+        <form method="POST" class="formDodawaniaProjektu" enctype="multipart/form-data">
+            {% csrf_token %}
+            <legend class="border-bottom mb-4 textalignright">Edycja projektu</legend>
+                {{form|crispy}}
+                <div class="form-group">
+                {{form.media}}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Zaktualizuj</button>
+            </div>
+        </form>
+    </div>
+{% endblock flexcontent %}
