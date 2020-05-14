@@ -70,7 +70,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/'
+    success_url = 'posts'
     template_name = 'app/post_delete.html'
 
     def test_func(self):
@@ -80,7 +80,7 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 class ProjectDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Project
-    success_url = '/'
+    success_url = 'projects'
     template_name = 'app/project_delete.html'
 
     def test_func(self):
