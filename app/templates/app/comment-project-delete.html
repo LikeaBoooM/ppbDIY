@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="flexbox-container3">
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Usuwanie komentarza</legend>
+                <h2>Czy jesteś pewny, że chcesz usunąć swój komentarz "{{ object.title }}"</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit" href="{% url 'project-detail' object.id %}">Tak chce usunąć komentarz </button>
+                <a class="btn btn-warning" href="{% url 'project-detail' object.project.id %}">Nie usuwaj komentarza</a>
+            </div>
+        </form>
+    </div>
+    </div>
+{% endblock content %}

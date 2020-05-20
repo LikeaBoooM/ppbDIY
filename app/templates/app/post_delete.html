@@ -10,7 +10,7 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-danger" type="submit">Tak chce usunąć pytanie </button>
-                <a class="btn btn-warning" href="{% url 'posts' %}">Nie usuwaj pytania</a>
+                <a class="btn btn-warning" href="{% url 'post-detail' object.slug %}">Nie usuwaj pytania</a>
             </div>
         </form>
     </div>

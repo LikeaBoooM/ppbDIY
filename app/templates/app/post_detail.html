@@ -49,9 +49,15 @@
                         <div class="col pl-0">
                             {{ comment.author }} odpowiedział(a):
                         </div>
+                        {% if comment.author == user %}
                         <div class="col text-right">
-                            <a class="btn btn-outline-danger btn-sm"href="">Del</a>
+                            <a class="btn btn-outline-danger btn-sm" href="{% url 'comment-post-delete' comment.id %}">Del</a>
                         </div>
+                        {% elif request.user.is_superuser%}
+                        <div class="col text-right">
+                            <a class="btn btn-outline-danger btn-sm" href="{% url 'comment-post-delete' comment.id %}">Del</a>
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="row pr-sm-5 pr-3 pl-3 pb-3">
                         {{ comment.content|linebreaks }}

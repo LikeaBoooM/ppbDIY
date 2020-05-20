@@ -4,11 +4,13 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group" style="margin-top: 50px;">
-                <legend class="border-bottom mb-4">Blog Post</legend>
+                <legend class="border-bottom mb-4 textalignright">Tworzenie pytania</legend>
                 {{form|crispy}}
-            </legend>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Post</button>
+            </fieldset>
+
+
+                <div class="textalignright">
+            <button class="btn btn-warning" type="submit">Dodaj pytanie</button>
             </div>
         </form>
     </div>
