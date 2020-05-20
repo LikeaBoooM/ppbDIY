@@ -19,12 +19,18 @@
                         <text>		
                           <a>Dodany przez: </a>{{ object.author }}<br/>
                           <a>Like : {{ total_likes }}</a><br />
+                          {% if user.is_authenticated %}
                           <form action="{% url 'like_project' %}" method="post">
                             {% csrf_token %}
+                            {%block if%}
                             {% if is_liked%}
                             <button value="{{ object.id }}" name=object_id style="border: 0px solid lightgrey; background: none;"><img src="{% static 'minus.png' %}" style="height: 40px;" alt=""></button>
                             {% else %}
                             <button value="{{ object.id }}" name=object_id style="border: 0px solid lightgrey; background: none;"><img src="{% static 'plus.png' %}" style="height: 40px;" alt=""></button>
+                            {% endif %}
+                            {% endblock %}
+                            {% else %}
+                            <a href="{% url 'login' %}?next={% url 'project-detail' object.id %}"><button value="{{ object.id }}" name=object_id style="border: 0px solid lightgrey; background: none;"><img src="{% static 'plus.png' %}" style="height: 40px;" alt=""></button></a>
                             {% endif %}
                           </form>
                         </text>	

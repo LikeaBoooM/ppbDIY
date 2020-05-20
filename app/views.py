@@ -214,7 +214,7 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         
 class ProjectUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Project
-    fields = ['title','miniature','description',]
+    form_class = ProjectForm
     template_name = 'app/project_update.html'
     
     def form_valid(self, form):
@@ -276,9 +276,9 @@ def ProjectDetail(request, pk):
 
     return render(request, 'app/project_detail.html', stuff_for_frontend)
 
-@login_required 
+
 def like_project(request):
-    project = get_object_or_404(Project, pk=request.POST.get('object_id'))
+    project = get_object_or_404(Project, id=request.POST.get('object_id'))
     is_liked = False
     if project.likes.filter(id=request.user.id).exists():
         project.likes.remove(request.user)
