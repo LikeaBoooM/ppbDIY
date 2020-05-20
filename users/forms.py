@@ -6,8 +6,8 @@ from django import forms
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label='Adres email')
     username = forms.CharField(label='Nazwa użytkownika')
-    password1 = forms.CharField(label='Hasło')
-    password2 = forms.CharField(label='Powtórz hasło')
+    password1 = forms.CharField(widget=forms.PasswordInput, label="Hasło")
+    password2 = forms.CharField(widget=forms.PasswordInput, label="Powtórz hasło")
 
     class Meta:
         model = User
