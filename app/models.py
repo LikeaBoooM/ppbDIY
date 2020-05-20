@@ -34,6 +34,7 @@ class Project(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     miniature = models.ImageField(upload_to='static/', default='static/arduino.jpg')
     description = RichTextUploadingField(blank=True, null=True)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
 
 
     def __str__(self):
@@ -48,6 +49,9 @@ class Project(models.Model):
     def upload_image(self, filename):
         return 'post/{}/{}'.format(self.title, filename)
 
+    def total_likes(self):
+        return self.likes.count()
+
 
 class CommentPost(models.Model):
     content = models.TextField()
@@ -56,7 +60,7 @@ class CommentPost(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        return self.author
+        return self.author.username
 
 
 class CommentProject(models.Model):
@@ -66,5 +70,5 @@ class CommentProject(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        return self.author
+        return self.author.username
        

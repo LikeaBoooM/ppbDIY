@@ -18,5 +18,6 @@ urlpatterns = [
     path('project/<int:pk>/', views.ProjectDetail, name='project-detail'),
     path('project/<int:pk>/delete/comment', CommentProjectDelete.as_view(), name='comment-project-delete'),
     path('project/<int:pk>/delete/', ProjectDelete.as_view(), name='project-delete'),
+    path('project/like/', views.like_project, name="like_project"),
     
 ]

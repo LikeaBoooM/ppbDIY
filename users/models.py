@@ -7,8 +7,9 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, default=None)
     image = models.ImageField(default='profile_pics/default.png', upload_to='profile_pics')
+    
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return  self.user.username
 
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)

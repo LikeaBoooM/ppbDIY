@@ -4,6 +4,7 @@ from . forms import PostForm, CommentFormPost, CommentFormProject, ProjectForm
 from . models import Post, User, CommentProject, CommentPost, Project
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 # Create your views here.
 
@@ -66,7 +67,7 @@ def home(request):
     }
     return render(request, 'app/home.html', stuff_for_frontend)
 
-
+@login_required
 def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
@@ -107,7 +108,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
     template = 'app/post_form.html'
-    
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -229,13 +229,29 @@ def ProjectDetail(request, pk):
             return HttpResponseRedirect(project.get_absolute_url())
     else :
         form = CommentFormProject()
-    
+
+    is_liked = False
+    if project.likes.filter(pk=request.user.id).exists():
+       is_liked = True
+
     stuff_for_frontend = {
         'object' : project,
         'comments' : comments,
         'form' : form,
+        'is_liked' : is_liked,
+        'total_likes' : project.total_likes(),
     }
 
     return render(request, 'app/project_detail.html', stuff_for_frontend)
     
-
+def like_project(request):
+    project = get_object_or_404(Project, pk=request.POST.get('object_id'))
+    is_liked = False
+    if project.likes.filter(id=request.user.id).exists():
+        project.likes.remove(request.user)
+        is_liked = False
+    else:
+        project.likes.add(request.user)
+        is_liked = True
+    
+    return HttpResponseRedirect(project.get_absolute_url())
