@@ -33,7 +33,7 @@ class Project(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
     miniature = models.ImageField(upload_to='static/', default='static/arduino.jpg')
-    description = RichTextUploadingField(blank=True, null=True)
+    Opis = RichTextUploadingField(blank=True, null=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
 
 

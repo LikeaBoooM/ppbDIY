@@ -5,6 +5,8 @@ from . models import Post, User, CommentProject, CommentPost, Project
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django import forms
 from django.urls import reverse
 # Create your views here.
 
@@ -15,21 +17,35 @@ def home(request):
 
     posts_to_front = []
     projects_to_front = []
+    likes_to_front = []
 
     if projects == 0:
         message = 'Cant find anything'
     elif projects == 1:
         project0 = Project.objects.order_by('-date_posted')[0]
+        likes0 = project0.likes.count()
+        likes_to_front.append(likes0)
         projects_to_front.append(project0)
+
     elif projects == 2:
         project0 = Project.objects.order_by('-date_posted')[0]
         project1 = Project.objects.order_by('-date_posted')[1]
+        likes0 = project0.likes.count()
+        likes1 = project1.likes.count()
+        likes_to_front.append(likes0)
+        likes_to_front.append(likes1)
         projects_to_front.append(project0)
         projects_to_front.append(project1)
     elif projects == 3:
         project0 = Project.objects.order_by('-date_posted')[0]
         project1 = Project.objects.order_by('-date_posted')[1]
         project2 = Project.objects.order_by('-date_posted')[2]
+        likes0 = project0.likes.count()
+        likes1 = project1.likes.count()
+        likes2 = project2.likes.count()
+        likes_to_front.append(likes0)
+        likes_to_front.append(likes1)
+        likes_to_front.append(likes2)
         projects_to_front.append(project0)
         projects_to_front.append(project1)
         projects_to_front.append(project2)
@@ -42,6 +58,14 @@ def home(request):
         projects_to_front.append(project1)
         projects_to_front.append(project2)
         projects_to_front.append(project3)
+        likes0 = project0.likes.count()
+        likes1 = project1.likes.count()
+        likes2 = project2.likes.count()
+        likes3 = project3.likes.count()
+        likes_to_front.append(likes0)
+        likes_to_front.append(likes1)
+        likes_to_front.append(likes2)
+        likes_to_front.append(likes3)
 
     if posts == 0:
         message = 'Cant find anything'
@@ -64,9 +88,17 @@ def home(request):
     stuff_for_frontend = {
         'posts_to_front': posts_to_front,
         'projects_to_front': projects_to_front,
+        'likes_to_front' : likes_to_front,
     }
     return render(request, 'app/home.html', stuff_for_frontend)
 
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+    username = forms.EmailField(label='Nazwa użytkownika', widget=forms.TextInput)
+    password = forms.CharField(label='Hasło', widget=forms.PasswordInput)
+    
 @login_required
 def add_project(request):
     if request.method == 'POST':
@@ -84,7 +116,7 @@ def add_project(request):
 class ProjectCreate(LoginRequiredMixin, CreateView):
     model = Project
     template_name = 'app/project_create.html'
-    fields = ['title','miniature','description',]
+    form_class = ProjectForm
 
     def form_valid(self, form_class):
         post = form_class.save(commit=False)
@@ -106,7 +138,7 @@ class PostList(ListView):
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    form_class = PostForm
     template = 'app/post_form.html'
 
     def form_valid(self, form):
@@ -243,7 +275,8 @@ def ProjectDetail(request, pk):
     }
 
     return render(request, 'app/project_detail.html', stuff_for_frontend)
-    
+
+@login_required 
 def like_project(request):
     project = get_object_or_404(Project, pk=request.POST.get('object_id'))
     is_liked = False

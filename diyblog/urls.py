@@ -19,14 +19,16 @@ from users import views as userviews
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as authviwes
+from app . forms import LoginForm
+from app . views import UserLoginForm
 
 urlpatterns = [
     path('', include('app.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('register/', userviews.register, name='register'),
-    path('login/', authviwes.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', authviwes.LogoutView.as_view(template_name='app/logout.html'), name='logout'),
+    path('login/', authviwes.LoginView.as_view(template_name='users/login.html', authentication_form=UserLoginForm), name='login'),
+    path('logout/', authviwes.LogoutView.as_view(template_name='app/logout.html', ), name='logout'),
     path('profile/', userviews.profile, name='profile'),
 ]
 
